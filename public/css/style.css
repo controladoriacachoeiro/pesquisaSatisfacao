@@ -1,0 +1,10 @@
+fieldset .special-padding-row .image{
+    width:100%;
+    text-align:center;
+    padding:0 0 20px 0;
+}
+
+fieldset .special-padding-row .image img{
+    max-width:100%;
+    height:auto;
+}

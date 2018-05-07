@@ -21,7 +21,7 @@
         <!-- <meta name="keywords" content="Transparência, Cachoeiro de Itapemirim, Contas públicas, Despesas, Receitas" /> -->
 
         <!-- Bootstrap 4 -->
-        <link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" />                
+        <link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" />            
         
         @yield('header-add')                       
     </head>
