@@ -1,5 +1,3 @@
-
-
 @section('htmlheader_title')
     Pesquisa de Satisfação - SEMFA
 @stop
@@ -42,8 +40,6 @@
 
 
 
-
-
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 
 <header class="title">
@@ -54,6 +50,7 @@
 
 <link rel="stylesheet" href="{{ asset('/css/externo/base.css') }}" />
 <link rel="stylesheet" href="{{ asset('/css/externo/preset-1.css') }}" />
+<link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
 
 <form method="post" action="{{ route('cadastrarResultado') }}">
     {{ csrf_field() }}            
@@ -83,7 +80,6 @@
                             @endfor                                                                                
                         </div>
                     </div>
-
 
                     @for ($i = 0; $i < count($perguntas); $i++)
                         <div class="input-group input-group-matrix  row">
@@ -117,9 +113,86 @@
         </li>                
     </ul>    
 </form>
-<span class="icon-checkmark">
-                
-</span>
+
+
+<div id="icon-fullscreen" class="fullscreen">
+    <a href="#" onclick="launchFullscreen(document.documentElement)"><img src="{{ asset('/img/fullscreen.png') }}" alt="fullscreen"></a>    
+</div>
+
+<script>
+    var telacheia = false;
+    // Find the right method, call on correct element
+    function launchFullscreen(element) {
+        if(element.requestFullscreen) {
+            element.requestFullscreen();
+        } else if(element.mozRequestFullScreen) {
+            element.mozRequestFullScreen();
+        } else if(element.webkitRequestFullscreen) {
+            element.webkitRequestFullscreen();
+        } else if(element.msRequestFullscreen) {
+            element.msRequestFullscreen();
+        }
+        document.getElementById("icon-fullscreen").style.display = "none";       
+    }
+
+    function exitFullscreen() {
+        if(document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if(document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if(document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+
+    function dumpFullscreen() {
+        console.log("document.fullscreenElement is: ", document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement);
+        console.log("document.fullscreenEnabled is: ", document.fullscreenEnabled || document.mozFullScreenEnabled || document.webkitFullscreenEnabled || document.msFullscreenEnabled);        
+    }
+
+    // Events
+    document.addEventListener("fullscreenchange", function(e) {
+        console.log("fullscreenchange event! ", e);
+        if( telacheia == true) {
+            telacheia = false;            
+            document.getElementById("icon-fullscreen").style.display = "block";
+        }else{
+            telacheia = true;
+        }
+    });
+    document.addEventListener("mozfullscreenchange", function(e) {
+        console.log("mozfullscreenchange event! ", e);                
+    });
+    document.addEventListener("webkitfullscreenchange", function(e) {
+        console.log("webkitfullscreenchange event! ", e);        
+        if( telacheia == true) {
+            telacheia = false;            
+            document.getElementById("icon-fullscreen").style.display = "block";
+        }else{
+            telacheia = true;
+        }
+    });
+    document.addEventListener("msfullscreenchange", function(e) {
+        console.log("msfullscreenchange event! ", e);   
+        if( telacheia == true) {
+            telacheia = false;            
+            document.getElementById("icon-fullscreen").style.display = "block";
+        }else{
+            telacheia = true;
+        }     
+    });
+    document.addEventListener("msfullscreenchange", function(e) {
+        console.log("msfullscreenchange event! ", e);
+        if( telacheia == true) {
+            telacheia = false;            
+            document.getElementById("icon-fullscreen").style.display = "block";
+        }else{
+            telacheia = true;
+        }        
+    });
+
+    // Add different events for fullscreen
+</script>
 
 
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">

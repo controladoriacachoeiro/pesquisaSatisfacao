@@ -8,3 +8,47 @@ fieldset .special-padding-row .image img{
     max-width:100%;
     height:auto;
 }
+
+.fullscreen{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+/* Início Fullscreen */
+
+    :-webkit-full-screen {
+    /* properties */
+    }
+
+    :-moz-full-screen {
+    /* properties */
+    }
+
+    :-ms-fullscreen {
+    /* properties */
+    }
+
+    :full-screen { /*pre-spec */
+    /* properties */
+    }
+
+    :fullscreen { /* spec */
+    /* properties */
+    }
+
+    /* deeper elements */
+    :-webkit-full-screen video {
+    width: 100%;
+    height: 100%;
+    }
+
+    /* styling the backdrop*/
+    ::backdrop {
+    /* properties */
+    }
+    ::-ms-backdrop {
+    /* properties */
+    }
+
+/* Fim Fullscreen */
