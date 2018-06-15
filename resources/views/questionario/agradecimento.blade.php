@@ -10,6 +10,6 @@
 
 @section('scriptadd')
     <script>
-        setTimeout("document.location = '/questionario/{{$questionario->QuestionarioID}}'",5000);
+        setTimeout("document.location = '/questionario/{{$questionario->QuestionarioID}}'",4000);
     </script>
 @stop

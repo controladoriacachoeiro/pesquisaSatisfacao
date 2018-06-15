@@ -30,6 +30,7 @@ class ResultadoController extends Controller
         
         $questionario = Questionario::select('QuestionarioID', 'msgObrigado')->where('QuestionarioID', '=', $resultado->QuestionarioID)->first();
         
-        return view('questionario.agradecimento', compact('questionario'));
+        return response()->json(['success'=> $questionario->msgObrigado]);
+        // return view('questionario.agradecimento', compact('questionario'));
     }
 }
