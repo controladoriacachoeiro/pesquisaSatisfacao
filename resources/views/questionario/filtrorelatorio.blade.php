@@ -21,7 +21,7 @@
     <h2>Questionário: {{$questionario->Titulo}}</h2>
     <div class="row">
         <div class="col-lg-12">
-            <form method="post" action="{{action('QuestionarioController@Relatorio', $questionario->QuestionarioID)}}" role="form" enctype="multipart/form-data">  
+            <form method="post" action="{{action('QuestionarioController@Relatorio', $questionario->QuestionarioID)}}" role="form" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-md-4"></div>
@@ -34,9 +34,16 @@
                     <div class="col-md-4"></div>
                     <div class="form-group col-md-4">
                         <label for="DataFinal">Data Final:</label>
-                        <input type="date" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="datafim" value="{{date('Y-m-d')}}">                
+                        <input type="date" class="form-control{{ $errors->has('date') ? ' is-invalid' : '' }}" name="datafim" value="{{date('Y-m-d')}}">
                     </div>
-                </div>        
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="form-group col-md-4">                        
+                        <input type="checkbox" class="form-check-input" id="chkTodos" name="chkTodos">
+                        <label class="form-check-label" for="chkTodos">Exibir Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="form-group col-md-4" style="margin-top:60px">

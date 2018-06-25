@@ -38,7 +38,9 @@
       @endforeach
     </tbody>
   </table>
-  {{$dadosDb->links()}}
+    @if($paginacao == 1)
+        {{$dadosDb->links()}}
+    @endif
   
 @stop
 
@@ -60,6 +62,6 @@
                 onmouseout: function (d, i) { console.log("onmouseout", d, i); }
                 }
             });
-        @endfor        
+        @endfor
     </script>
 @stop

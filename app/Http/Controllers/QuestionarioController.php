@@ -148,10 +148,10 @@ class QuestionarioController extends Controller
         $questionario = $questionario->first();
 
         $perguntas = Pergunta::where('QuestionarioID', '=', $id);
-        $perguntas = $perguntas->get(); 
+        $perguntas = $perguntas->get();
         
         $respostas = Resposta::where('QuestionarioID', '=', $id)->orderBy('Nivel');
-        $respostas = $respostas->get();        
+        $respostas = $respostas->get();
 
         return view('questionario.pesquisa', compact('questionario', 'perguntas', 'respostas'));
     }
@@ -167,17 +167,17 @@ class QuestionarioController extends Controller
 
     //POST
     public function Relatorio(Request $request, $id)
-    {        
+    {
         //Validação
             $regras = [
                 'dataini' => 'required|max:200',
-                'datafim' => 'required|max:200'                
-            ];    
+                'datafim' => 'required|max:200'
+            ];
             $mensagens = [
                 'dataini.required' => 'Data Inicial é obrigatório.',
                 'datafim.required' => 'Data Final é obrigatório.',
                 'titulo.max' => 'Título deve ter até 200 caracteres.'
-            ];  
+            ];
     
             $validator = Validator::make($request->all(), $regras, $mensagens);
                                 
@@ -187,17 +187,24 @@ class QuestionarioController extends Controller
             }
         //Fim Validação
 
+        if($request->chkTodos == null){
+            $paginacao = 1;
+        }else{
+            $paginacao = 0;
+        }
+        
+
         $dataini = $this->ajeitaDataUrl($request->dataini);
         $datafim = $this->ajeitaDataUrl($request->datafim);
 
-        return redirect()->route('mostrarRelatorio', ['id' => $id, 'dataIni' => $dataini, 'dataFim' => $datafim]);    
+        return redirect()->route('mostrarRelatorio', ['id' => $id, 'paginacao' => $paginacao, 'dataIni' => $dataini, 'dataFim' => $datafim]);
     }
 
-    //
-    public function MostrarRelatorio($id, $dataIni, $dataFim)
-    {       
+    //GET
+    public function MostrarRelatorio($id, $paginacao, $dataIni, $dataFim)
+    {               
         $dataini = $this->ajeitaDataUrl2($dataIni);
-        $datafim = $this->ajeitaDataUrl2($dataFim);
+        $datafim = $this->ajeitaDataUrl2($dataFim);        
 
         /* 
             select pr.ResultadoID, questionarios.QuestionarioID, resultados.Data,  
@@ -217,8 +224,13 @@ class QuestionarioController extends Controller
         ->join('Questionarios', 'Resultados.QuestionarioID', '=', 'Questionarios.QuestionarioID')
         ->where('Questionarios.QuestionarioID', '=', $id)
         ->whereBetween('Resultados.Data', [$dataini, $datafim])
-        ->orderBy('Resultados.ResultadoID');        
-        $dadosDb = $dadosDb->paginate(15);
+        ->orderBy('Resultados.ResultadoID');
+        if($paginacao == 1){
+            $dadosDb = $dadosDb->paginate(15);
+        }else{
+            $dadosDb = $dadosDb->get();
+        }        
+        
         
         // $perguntas = [];
         // foreach($dadosDb as $item){
@@ -253,7 +265,7 @@ class QuestionarioController extends Controller
         }
         
         
-        return view('questionario.relatorio', compact('dadosDb', 'TodosGraficos'));
+        return view('questionario.relatorio', compact('dadosDb', 'TodosGraficos', 'paginacao'));
     }
 
     public function ajeitaDataUrl($data){

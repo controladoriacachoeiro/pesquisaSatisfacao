@@ -29,7 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/deletar/{id}', 'QuestionarioController@Deletar');
         Route::get('/filtroRelatorio/{id}', 'QuestionarioController@filtroRelatorio')->name('filtroRelatorio');
         Route::post('/relatorio/{id}', 'QuestionarioController@Relatorio');
-        Route::get('/relatorio/{id}/{dataIni}/{dataFim}', 'QuestionarioController@MostrarRelatorio')->name('mostrarRelatorio');
+        Route::get('/relatorio/{id}/paginacao/{paginacao}/{dataIni}/{dataFim}', 'QuestionarioController@MostrarRelatorio')->name('mostrarRelatorio');
     });
 
     //Pergunta
