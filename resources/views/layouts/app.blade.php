@@ -17,11 +17,11 @@
         <meta name="rating" content="General" />
         <meta name="author" content="Controladoria de Cachoeiro de Itapemirim" />
         <meta name="title" content="@yield('htmlheader_title')" />
-        <meta name="description" content="Pesquisa de Satisfação da SEMFA" />
-        <!-- <meta name="keywords" content="Transparência, Cachoeiro de Itapemirim, Contas públicas, Despesas, Receitas" /> -->
+        <meta name="description" content="Pesquisa de Satisfação da SEMFA" />        
 
         <!-- Bootstrap 4 -->
         <link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap.min.css') }}" />            
+        <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
         
         @yield('header-add')                       
     </head>
@@ -35,15 +35,12 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Features</a>
-                    </li> -->
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li> -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">                        
+                        <a class="nav-link" href="/admin/questionario">Questionario</a>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin
                         </a>

@@ -52,3 +52,18 @@ fieldset .special-padding-row .image img{
     }
 
 /* Fim Fullscreen */
+
+.container{
+    margin-top: 20px;
+    margin-bottom:20px
+}
+
+.aux-buttons{
+    float: left;
+    padding: 10px 7px 15px 15px 
+}
+
+.grafico{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

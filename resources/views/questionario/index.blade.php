@@ -5,7 +5,6 @@
 @stop
 
 @section('main-content')
-    <br/> 
     @if (\Session::has('error'))
         <div class="alert alert-danger">
           <p>{{ \Session::get('error') }}</p>
@@ -33,7 +32,7 @@
         <th>ID</th>
         <th>Título</th>
         <th>Introdução</th>        
-        <th colspan="4">Ações</th>
+        <th colspan="5">Ações</th>
       </tr>
     </thead>
     <tbody>          
@@ -44,12 +43,12 @@
         <td>{{$questionario->Introducao}}</td>        
 
         <td><a href="{{action('QuestionarioController@Mostrar', $questionario->QuestionarioID)}}" class="btn btn-primary">Visualizar</a></td>
-        <td><a href="{{action('QuestionarioController@Editar', $questionario->QuestionarioID)}}" class="btn btn-warning">Editar</a></td>
+        <td><a href="{{action('QuestionarioController@Editar', $questionario->QuestionarioID)}}" class="btn btn-secondary">Editar</a></td>
         <td>
           <form class="delete" action="{{action('QuestionarioController@Deletar', $questionario->QuestionarioID)}}" method="post">
             @csrf                
 
-            <button class="btn btn-large btn-primary" type="submit" data-popout="true"
+            <button class="btn btn-large btn-danger" type="submit" data-popout="true"
                     data-toggle="confirmation"
                     data-btn-ok-label="Sim" data-btn-ok-class="btn-success"
                     data-btn-ok-icon-class="material-icons" 
@@ -61,7 +60,10 @@
           </form>
         </td>
         <td>
-          <a href="{{action('QuestionarioController@showQuestionario', $questionario->QuestionarioID)}}" class="btn btn-warning">Pesquisar</a>
+          <a href="{{action('QuestionarioController@showQuestionario', $questionario->QuestionarioID)}}" class="btn btn-info">Pesquisar</a>
+        </td>
+        <td>
+          <a href="{{action('QuestionarioController@filtroRelatorio', $questionario->QuestionarioID)}}" class="btn btn-dark">Relatório</a>
         </td>
       </tr>
       @endforeach

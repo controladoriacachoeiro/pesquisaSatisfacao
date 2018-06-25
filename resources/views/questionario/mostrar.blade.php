@@ -25,22 +25,26 @@
     <p>Introdução: {{$questionario->Introducao}}</p>
     <p>Mensagem de Boas Vindas: {{$questionario->MsgBoasVindas}}</p>
     <p>Indicativo: {{$questionario->Indicativo}}</p>
-    <p>Mensagem de Agradecimento: {{$questionario->MsgObrigado}}</p>    
-    <br/>
-    <a href="{{action('QuestionarioController@Editar', $questionario->QuestionarioID)}}" class="btn btn-warning">Editar</a>                     
-    <form class="delete" action="{{action('QuestionarioController@Deletar', $questionario->QuestionarioID)}}" method="post">
-        @csrf                
-
-        <button class="btn btn-large btn-primary" type="submit" data-popout="true"
-                data-toggle="confirmation"
-                data-btn-ok-label="Sim" data-btn-ok-class="btn-success"
-                data-btn-ok-icon-class="material-icons" 
-                data-btn-cancel-label="Não" data-btn-cancel-class="btn-danger"
-                data-btn-cancel-icon-class="material-icons"
-                data-title="Confirma a exclusão?">
-        Excluir
-        </button>                
-    </form>
+    <p>Mensagem de Agradecimento: {{$questionario->MsgObrigado}}</p>  
+    <div class="row">      
+        <div class="aux-buttons">
+            <a href="{{action('QuestionarioController@Editar', $questionario->QuestionarioID)}}" class="btn btn-secondary">Editar</a>
+        </div>
+        <div class="aux-buttons">
+            <form class="delete" action="{{action('QuestionarioController@Deletar', $questionario->QuestionarioID)}}" method="post">
+                @csrf
+                <button class="btn btn-large btn-danger" type="submit" data-popout="true"
+                        data-toggle="confirmation"
+                        data-btn-ok-label="Sim" data-btn-ok-class="btn-success"
+                        data-btn-ok-icon-class="material-icons" 
+                        data-btn-cancel-label="Não" data-btn-cancel-class="btn-danger"
+                        data-btn-cancel-icon-class="material-icons"
+                        data-title="Confirma a exclusão?">
+                    Excluir
+                </button>
+            </form>
+        </div>
+    </div>
     <br/>
     <br/>
     <p><b>Perguntas do Questionário</b></p>
@@ -65,13 +69,13 @@
         <td>{{$pergunta->PerguntaID}}</td>
         <td>{{$pergunta->Descricao}}</td>              
         
-        <td><a href="{{action('PerguntaController@Editar', $pergunta->PerguntaID)}}" class="btn btn-warning">Editar</a></td>
+        <td><a href="{{action('PerguntaController@Editar', $pergunta->PerguntaID)}}" class="btn btn-secondary">Editar</a></td>
         <td>
           <form class="delete" action="{{action('PerguntaController@Deletar', $pergunta->PerguntaID)}}" method="post">
             @csrf
             
             <input id="questionarioID" type="hidden" class="form-control" name="questionarioID" value="{{$pergunta->QuestionarioID}}">
-            <button class="btn btn-large btn-primary" type="submit" data-popout="true"
+            <button class="btn btn-large btn-danger" type="submit" data-popout="true"
                     data-toggle="confirmation"
                     data-btn-ok-label="Sim" data-btn-ok-class="btn-success"
                     data-btn-ok-icon-class="material-icons" 
@@ -112,13 +116,13 @@
         <td>{{$resposta->Descricao}}</td>
         <td>{{$resposta->Nivel}}</td>               
         
-        <td><a href="{{action('RespostaController@Editar', $resposta->RespostaID)}}" class="btn btn-warning">Editar</a></td>
+        <td><a href="{{action('RespostaController@Editar', $resposta->RespostaID)}}" class="btn btn-secondary">Editar</a></td>
         <td>
             <form class="delete" action="{{action('RespostaController@Deletar', $resposta->RespostaID)}}" method="post">
             @csrf
             
             <input id="questionarioID" type="hidden" class="form-control" name="questionarioID" value="{{$resposta->QuestionarioID}}">
-            <button class="btn btn-large btn-primary" type="submit" data-popout="true"
+            <button class="btn btn-large btn-danger" type="submit" data-popout="true"
                     data-toggle="confirmation"
                     data-btn-ok-label="Sim" data-btn-ok-class="btn-success"
                     data-btn-ok-icon-class="material-icons" 

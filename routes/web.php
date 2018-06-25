@@ -27,6 +27,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/editar/{id}', 'QuestionarioController@Editar');
         Route::get('/mostrar/{id}', 'QuestionarioController@Mostrar')->name('mostrarQuestionario');
         Route::post('/deletar/{id}', 'QuestionarioController@Deletar');
+        Route::get('/filtroRelatorio/{id}', 'QuestionarioController@filtroRelatorio')->name('filtroRelatorio');
+        Route::post('/relatorio/{id}', 'QuestionarioController@Relatorio');
+        Route::get('/relatorio/{id}/{dataIni}/{dataFim}', 'QuestionarioController@MostrarRelatorio')->name('mostrarRelatorio');
     });
 
     //Pergunta

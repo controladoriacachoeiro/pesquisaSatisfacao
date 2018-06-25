@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Questionario;
 use App\Pergunta;
 use App\Resposta;
+use App\PergResp;
+use App\Resultado;
 
 class QuestionarioController extends Controller
 {
@@ -152,5 +154,129 @@ class QuestionarioController extends Controller
         $respostas = $respostas->get();        
 
         return view('questionario.pesquisa', compact('questionario', 'perguntas', 'respostas'));
+    }
+
+    //GET
+    public function filtroRelatorio($id)
+    {
+        $questionario = Questionario::where('QuestionarioID', '=', $id);
+        $questionario = $questionario->first();        
+
+        return view('questionario.filtrorelatorio', compact('questionario'));
+    }
+
+    //POST
+    public function Relatorio(Request $request, $id)
+    {        
+        //Validação
+            $regras = [
+                'dataini' => 'required|max:200',
+                'datafim' => 'required|max:200'                
+            ];    
+            $mensagens = [
+                'dataini.required' => 'Data Inicial é obrigatório.',
+                'datafim.required' => 'Data Final é obrigatório.',
+                'titulo.max' => 'Título deve ter até 200 caracteres.'
+            ];  
+    
+            $validator = Validator::make($request->all(), $regras, $mensagens);
+                                
+            if ($validator->fails()) {
+                return redirect()->route('filtroRelatorio', ['id' => $id])
+                            ->withErrors($validator);
+            }
+        //Fim Validação
+
+        $dataini = $this->ajeitaDataUrl($request->dataini);
+        $datafim = $this->ajeitaDataUrl($request->datafim);
+
+        return redirect()->route('mostrarRelatorio', ['id' => $id, 'dataIni' => $dataini, 'dataFim' => $datafim]);    
+    }
+
+    //
+    public function MostrarRelatorio($id, $dataIni, $dataFim)
+    {       
+        $dataini = $this->ajeitaDataUrl2($dataIni);
+        $datafim = $this->ajeitaDataUrl2($dataFim);
+
+        /* 
+            select pr.ResultadoID, questionarios.QuestionarioID, resultados.Data,  
+            pr.PerguntaID, perguntas.Descricao, pr.RespostaID, respostas.Descricao from pergresp pr
+            inner join resultados on pr.ResultadoID = resultados.ResultadoID
+            inner join perguntas on pr.PerguntaID = perguntas.PerguntaID
+            inner join respostas on pr.RespostaID = respostas.RespostaID
+            inner join questionarios on resultados.QuestionarioID = questionarios.QuestionarioID
+            ORDER by ResultadoID 
+        */
+
+        $dadosDb = PergResp::selectRaw('PergResp.ResultadoID, Questionarios.QuestionarioID, Resultados.Data,
+        Perguntas.Descricao as Pergunta, Respostas.Descricao as Resposta')
+        ->join('Resultados', 'PergResp.ResultadoID', '=', 'Resultados.ResultadoID')
+        ->join('Perguntas', 'PergResp.PerguntaID', '=', 'Perguntas.PerguntaID')
+        ->join('Respostas', 'PergResp.RespostaID', '=', 'Respostas.RespostaID')
+        ->join('Questionarios', 'Resultados.QuestionarioID', '=', 'Questionarios.QuestionarioID')
+        ->where('Questionarios.QuestionarioID', '=', $id)
+        ->whereBetween('Resultados.Data', [$dataini, $datafim])
+        ->orderBy('Resultados.ResultadoID');        
+        $dadosDb = $dadosDb->paginate(15);
+        
+        // $perguntas = [];
+        // foreach($dadosDb as $item){
+        //     $aux = array($item->, )
+        // }
+
+
+        //Quantidade de pesquisas feitas
+        $quantResult = Resultado::selectRaw('count(*) as Quantidade')->first();
+
+        $perguntas = PergResp::select('PerguntaID')->distinct()->get();
+
+        if(count($perguntas) > 0){
+            $TodosGraficos = [];
+            foreach($perguntas as $pergunta){
+                $dadosPergunta = PergResp::selectRaw('PergResp.PerguntaID as PerguntaID, Perguntas.Descricao as Pergunta, PergResp.RespostaID as RespostaID,
+                                                Respostas.Descricao as Resposta, count(*) as Quantidade')        
+                ->join('Perguntas', 'Perguntas.PerguntaID', '=', 'PergResp.PerguntaID')
+                ->join('Respostas', 'Respostas.RespostaID', '=', 'PergResp.RespostaID')
+                ->where('PergResp.PerguntaID', $pergunta->PerguntaID)            
+                ->groupBy('PergResp.PerguntaID', 'PergResp.RespostaID')
+                ->orderBy('Respostas.Nivel');
+                $dadosPergunta = $dadosPergunta->get();
+                
+                
+                $grafico = [];
+                foreach($dadosPergunta as $key => $dado){
+                    array_push($grafico, array($dado->Resposta, $dado->Quantidade));
+                }                
+                array_push($TodosGraficos, array("Pergunta" => $dadosPergunta[0]->Pergunta, "Dados" => $grafico));
+            }
+        }
+        
+        
+        return view('questionario.relatorio', compact('dadosDb', 'TodosGraficos'));
+    }
+
+    public function ajeitaDataUrl($data){
+        $elemento = explode("-", $data);
+
+        $ano = $elemento[0];
+        $mes = $elemento[1];
+        $dia = $elemento[2];
+
+        $resultado = $dia . "-" . $mes . "-" . $ano;
+        
+        return $resultado;
+    }
+
+    public function ajeitaDataUrl2($data){
+        $elemento = explode("-", $data);
+
+        $dia = $elemento[0];
+        $mes = $elemento[1];
+        $ano = $elemento[2];
+
+        $resultado = $ano . "-" . $mes . "-" . $dia;
+        
+        return $resultado;
     }
 }
