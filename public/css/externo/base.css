@@ -7243,8 +7243,8 @@ button.close {
 
 @font-face {
   font-family: 'Roboto', sans-serif;
-  src: url("fonts-ico/icomoon.eot");
-  src: url("fonts-ico/icomoon.eot?#iefix") format("embedded-opentype"), url("fonts-ico/icomoon.svg#icomoon") format("svg"), url("fonts-ico/icomoon.woff") format("woff"), url("fonts-ico/icomoon.ttf") format("truetype");
+  src: url("fonts/icomoon.eot");
+  src: url("fonts/icomoon.eot?#iefix") format("embedded-opentype"), url("fonts/icomoon.svg#icomoon") format("svg"), url("fonts/icomoon.woff") format("woff"), url("fonts/icomoon.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -7797,7 +7797,7 @@ select.form-control {
 
 .input-group-radio .input-group-addon:before,
 .input-group-checkbox .input-group-addon:before {
-  content: "\e6fc";
+  content: "✓";
   font-family: 'Roboto', sans-serif;
   text-indent: -9999px;
   width: 32px;

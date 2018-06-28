@@ -202,9 +202,14 @@ class QuestionarioController extends Controller
 
     //GET
     public function MostrarRelatorio($id, $paginacao, $dataIni, $dataFim)
-    {               
+    {
+        
         $dataini = $this->ajeitaDataUrl2($dataIni);
-        $datafim = $this->ajeitaDataUrl2($dataFim);        
+        $datafim = $this->ajeitaDataUrl2($dataFim);  
+                    
+        $datafim = date('Y-m-d', strtotime($datafim . ' +1 day'));
+        
+
 
         /* 
             select pr.ResultadoID, questionarios.QuestionarioID, resultados.Data,  
@@ -229,14 +234,8 @@ class QuestionarioController extends Controller
             $dadosDb = $dadosDb->paginate(15);
         }else{
             $dadosDb = $dadosDb->get();
-        }        
+        }
         
-        
-        // $perguntas = [];
-        // foreach($dadosDb as $item){
-        //     $aux = array($item->, )
-        // }
-
 
         //Quantidade de pesquisas feitas
         $quantResult = Resultado::selectRaw('count(*) as Quantidade')->first();
@@ -254,8 +253,7 @@ class QuestionarioController extends Controller
                 ->groupBy('PergResp.PerguntaID', 'PergResp.RespostaID')
                 ->orderBy('Respostas.Nivel');
                 $dadosPergunta = $dadosPergunta->get();
-                
-                
+                                
                 $grafico = [];
                 foreach($dadosPergunta as $key => $dado){
                     array_push($grafico, array($dado->Resposta, $dado->Quantidade));
@@ -263,8 +261,7 @@ class QuestionarioController extends Controller
                 array_push($TodosGraficos, array("Pergunta" => $dadosPergunta[0]->Pergunta, "Dados" => $grafico));
             }
         }
-        
-        
+                
         return view('questionario.relatorio', compact('dadosDb', 'TodosGraficos', 'paginacao'));
     }
 
