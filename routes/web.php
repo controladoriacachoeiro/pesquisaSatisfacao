@@ -12,10 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return redirect()->route('home');
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'AdminController@getIndex');
 
     //Questionário
@@ -58,3 +63,6 @@ Route::get('questionario/{id}', 'QuestionarioController@showQuestionario')->name
 
 //Resultado
 Route::post('resultado/cadastrar', 'ResultadoController@Cadastrar')->name('cadastrarResultado');
+
+
+
