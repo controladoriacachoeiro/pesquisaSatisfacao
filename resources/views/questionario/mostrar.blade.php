@@ -20,12 +20,13 @@
         <br/>
     @endif
     <h2>Dados do Questionário</h2>
-    <p><b>Questionário: {{$questionario->Titulo}}</b></p>
-    <p>ID: {{$questionario->QuestionarioID}}</p>
-    <p>Introdução: {{$questionario->Introducao}}</p>
-    <p>Mensagem de Boas Vindas: {{$questionario->MsgBoasVindas}}</p>
-    <p>Indicativo: {{$questionario->Indicativo}}</p>
-    <p>Mensagem de Agradecimento: {{$questionario->MsgObrigado}}</p>  
+    </br>
+    <p><b>Título do Questionário:</b> {{$questionario->Titulo}}</p>
+    <p><b>ID:</b> {{$questionario->QuestionarioID}}</p>
+    <p><b>Introdução:</b> {{$questionario->Introducao}}</p>
+    <p><b>Mensagem de Boas Vindas:</b> {{$questionario->MsgBoasVindas}}</p>
+    <p><b>Indicativo:</b> {{$questionario->Indicativo}}</p>
+    <p><b>Mensagem de Agradecimento:</b> {{$questionario->MsgObrigado}}</p>  
     <div class="row">      
         <div class="aux-buttons">
             <a href="{{action('QuestionarioController@Editar', $questionario->QuestionarioID)}}" class="btn btn-secondary">Editar</a>
