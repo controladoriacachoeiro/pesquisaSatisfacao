@@ -202,15 +202,12 @@ class QuestionarioController extends Controller
 
     //GET
     public function MostrarRelatorio($id, $paginacao, $dataIni, $dataFim)
-    {
-        
+    {        
         $dataini = $this->ajeitaDataUrl2($dataIni);
         $datafim = $this->ajeitaDataUrl2($dataFim);  
                     
         $datafim = date('Y-m-d', strtotime($datafim . ' +1 day'));
         
-
-
         /* 
             select pr.ResultadoID, questionarios.QuestionarioID, resultados.Data,  
             pr.PerguntaID, perguntas.Descricao, pr.RespostaID, respostas.Descricao from pergresp pr

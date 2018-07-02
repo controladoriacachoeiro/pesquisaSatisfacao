@@ -79,23 +79,28 @@
                     
                 </div>
             </nav>
-        </header>
-        <div>        													                                
+        </header>              													                                
             <!-- Main content -->
-            <div class="container">
+            <div class="container" id="rodape">
                 @yield('main-content')
             </div>
             <!-- /.content -->
-        </div>
-
-        <footer>
-
+        <footer class="border-top">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <p>Desenvolvido pela equipe do Portal da Transparência - 2018 - v-1.0</p>
+                </div>
+            </div>
         </footer>
+
                     
         <script src="{{ asset('/js/jQuery/jquery-3.3.1.min.js') }}"></script>
         <!-- <script src="{{ asset('/js/app.js') }}"></script> -->
         <script src="{{ asset('/bootstrap/js/bootstrap.min.js')}}"></script>
           
+        <script>
+            $("#rodape").css("min-height", $(document).height()*0.8);  
+        </script>
         @yield('scriptadd')
 
     </body>
