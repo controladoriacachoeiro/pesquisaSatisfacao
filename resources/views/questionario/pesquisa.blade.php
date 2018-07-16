@@ -9,12 +9,66 @@
     <link rel="stylesheet" href="{{ asset('/css/externo/base.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/externo/preset-1.css') }}" />
     <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
+    <style>
+        header{
+            padding-top: 10px;
+        }
+        .cabecalho{
+            font-size: 38px;
+            text-align: center;            
+        }
+        .cabecalho img{
+            width: 150px;
+            float: left;
+        }
+        .cabecalho p{
+            padding-left: 25px;
+            margin-bottom: 0px;
+        }
+        .col-title h1{
+            clear: both;
+            padding-top: 30px;
+        }
+        @media only screen and (max-width: 862px) {
+            .cabecalho{
+                font-size: 30px;
+            }
+            .cabecalho img{
+                width: 125px;
+            }
+            .cabecalho p{
+                padding-left: 20px;
+            }
+        }
+        @media only screen and (max-width: 767px) {
+            header{
+                padding-top: 5px;
+            }
+        }
+        @media only screen and (max-width: 685px) {
+            .cabecalho img{            
+                float: none;
+            }       
+            .cabecalho{
+                font-size: 22px;
+            }     
+        }
+    </style>
 </head>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous" />
 
 <header class="title">
     <div class="col-title">
+        <div class="cabecalho">            
+            <div class="logo">
+                <img class="" src="{{ asset('/img/logoPMCI.png') }}" alt="logo da prefeitura de Cachoeiro de Itapemirim">
+            </div>
+            <div class="texto">
+                <p>Prefeitura de Cachoeiro de Itapemirim</p>
+                <p>Secretaria Municipal de Fazenda</p>
+            </div>
+        </div>
         <h1 style="text-align: center">{{$questionario->Titulo}}</h1>
     </div>
 </header>
